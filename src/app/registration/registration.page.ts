@@ -47,4 +47,26 @@ export class RegistrationPage implements OnInit {
     }
 
 
+    isInvalid(control: any) {
+      return this.reviewForm.controls[control].invalid &&
+      this.reviewForm.controls[control].touched;
+  }
+
+  isUntouched() {
+      return this.reviewForm.controls.first_name.pristine ||
+      this.reviewForm.controls.last_name.pristine ||
+      this.reviewForm.controls.email_address.pristine ||
+      this.reviewForm.controls.username.pristine ||
+      this.reviewForm.controls.password.pristine ||
+      this.reviewForm.controls.allergy.pristine;
+  }
+  isIncomplete() {
+      return this.isInvalid('first_name') ||
+          this.isInvalid('last_name') ||
+          this.isInvalid('email_address') ||
+          this.isInvalid('username') ||
+          this.isInvalid('password') ||
+          this.isInvalid('allergy') ||
+          this.isUntouched();
+  }
 }
