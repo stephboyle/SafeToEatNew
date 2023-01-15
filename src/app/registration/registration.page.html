@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content scrollY="false">
+  <ion-card>
+    <ion-card-content>
+      <form (ngSubmit)="createAccount()" [formGroup]="reviewForm">
+        <ion-item lines="full">
+          <ion-label position="floating">First name</ion-label>
+          <ion-input type="text" inputmode="first_name"
+                    formControlName="first_name" required></ion-input>
+          <!-- <ion-note formControlName="first_name" slot="error"
+          *ngIf="(first_name.dirty || first_name.touched) && first_name.errors">Please enter your first name</ion-note> -->
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Last name</ion-label>
+          <ion-input type="text" inputmode="last_name"
+                    formControlName="last_name" required></ion-input>
+          <!-- <ion-note slot="error"
+          *ngIf="(last_name.dirty || last_name.touched) && last_name.errors">Please enter your last name</ion-note> -->
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Email address</ion-label>
+          <ion-input type="email" inputmode="email_address"
+                    formControlName="email_address" required></ion-input>
+          <!-- <ion-note slot="error"
+          *ngIf="(email_address.dirty || email_address.touched) && email_address.errors">Please insert you email address</ion-note> -->
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text" inputmode="username"
+                    formControlName="username" required></ion-input>
+          <!-- <ion-note slot="error"
+          *ngIf="(username.dirty || username.touched) && username.errors">Please create a username</ion-note> -->
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" inputmode="password"
+                    formControlName="password" required></ion-input>
+          <!-- <ion-note slot="error"
+          *ngIf="(password.dirty || password.touched) && password.errors?.required">Please create a password</ion-note> -->
+          <!-- <ion-note slot="error"
+          *ngIf="(password.dirty || password.touched) && password.errors?.Minlength">Minlength 6 characters</ion-note> -->
+        </ion-item>
+            <ion-button type="submit" expand="block" strong="true"
+            >Sign Up</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
