@@ -47,7 +47,7 @@ export class RegistrationPage implements OnInit {
     }
 
 
-    isInvalid(control: any) {
+  isInvalid(control: any) {
       return this.reviewForm.controls[control].invalid &&
       this.reviewForm.controls[control].touched;
   }

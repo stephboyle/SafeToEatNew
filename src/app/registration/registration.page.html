@@ -15,52 +15,58 @@
           <ion-input type="text" inputmode="first_name"
                     formControlName="first_name" required
                     [ngClass]="{ 'error': isInvalid('first_name') }"></ion-input>
-          <!-- <ion-note formControlName="first_name" slot="error"
-          *ngIf="(first_name.dirty || first_name.touched) && first_name.errors">Please enter your first name</ion-note> -->
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Last name</ion-label>
           <ion-input type="text" inputmode="last_name"
                     formControlName="last_name" required
-                    [ngClass]="{ 'error': isInvalid('first_name') }"></ion-input>
-          <!-- <ion-note slot="error"
-          *ngIf="(last_name.dirty || last_name.touched) && last_name.errors">Please enter your last name</ion-note> -->
+                    [ngClass]="{ 'error': isInvalid('last_name') }"></ion-input>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Email address</ion-label>
           <ion-input type="email" inputmode="email_address"
                     formControlName="email_address" required
-                    [ngClass]="{ 'error': isInvalid('first_name') }"></ion-input>
-          <!-- <ion-note slot="error"
-          *ngIf="(email_address.dirty || email_address.touched) && email_address.errors">Please insert you email address</ion-note> -->
+                    [ngClass]="{ 'error': isInvalid('email_address') }"
+                    placeholder="email@domain.com"
+                    ngModel email></ion-input>
+          <ion-note slot="helper">Enter a valid email</ion-note>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Username</ion-label>
           <ion-input type="text" inputmode="username"
                     formControlName="username" required
-                    [ngClass]="{ 'error': isInvalid('first_name') }"></ion-input>
-          <!-- <ion-note slot="error"
-          *ngIf="(username.dirty || username.touched) && username.errors">Please create a username</ion-note> -->
+                    [ngClass]="{ 'error': isInvalid('username') }"></ion-input>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
           <ion-input type="password" inputmode="password"
                     formControlName="password" required
-                    [ngClass]="{ 'error': isInvalid('first_name') }"></ion-input>
-          <!-- <ion-note slot="error"
-          *ngIf="(password.dirty || password.touched) && password.errors?.required">Please create a password</ion-note> -->
-          <!-- <ion-note slot="error"
-          *ngIf="(password.dirty || password.touched) && password.errors?.Minlength">Minlength 6 characters</ion-note> -->
+                    [ngClass]="{ 'error': isInvalid('password') }"></ion-input>
         </ion-item>
-        <ion-item lines="full">
+        <!-- <ion-item lines="full">
           <ion-label position="floating">Allergy</ion-label>
           <ion-input type="text" inputmode="allergy"
                     formControlName="allergy" required
                     [ngClass]="{ 'error': isInvalid('allergy') }"></ion-input>
-          <!-- <ion-note slot="error"
-          *ngIf="(password.dirty || password.touched) && password.errors?.required">Please create a password</ion-note> -->
-          <!-- <ion-note slot="error"
-          *ngIf="(password.dirty || password.touched) && password.errors?.Minlength">Minlength 6 characters</ion-note> -->
+        </ion-item> -->
+        <ion-item>
+          <ion-select placeholder="Select allergy" 
+                      formControlName="allergy"
+                      [multiple]="true">
+              <ion-select-option value="celery">Celery</ion-select-option>
+              <ion-select-option value="gluten">Gluten</ion-select-option>
+              <ion-select-option value="eggs">Eggs</ion-select-option>
+              <ion-select-option value="fish">Fish</ion-select-option>
+              <ion-select-option value="lupin">Lupin</ion-select-option>
+              <ion-select-option value="milk">Milk</ion-select-option>
+              <ion-select-option value="molluscs">Molluscs</ion-select-option>
+              <ion-select-option value="mustard">Mustard</ion-select-option>
+              <ion-select-option value="peanuts">Peanuts</ion-select-option>
+              <ion-select-option value="sesame">Sesame</ion-select-option>
+              <ion-select-option value="soybeans">Soybeans</ion-select-option>
+              <ion-select-option value="sulphur dioxide">Sulfur Dioxide</ion-select-option>
+              <ion-select-option value="sulphites">Sulphites</ion-select-option>
+          </ion-select>
         </ion-item>
             <ion-button *ngIf="!isIncomplete()" type="submit" expand="block" strong="true">Sign Up</ion-button>
       </form>

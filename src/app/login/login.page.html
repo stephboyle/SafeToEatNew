@@ -7,18 +7,31 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form>
-    <ion-item lines="full">
+  <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <!-- <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
       <ion-input type="text" required></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required></ion-input>
+      <ion-input type="password" required
+      [ngClass]="{ 'error': isInvalid('password') }"></ion-input>
+    </ion-item> -->
+    <ion-item lines="full">
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" inputmode="username"
+                formControlName="username" required
+                [ngClass]="{ 'error': isInvalid('username') }"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" inputmode="password"
+                formControlName="password" required
+                [ngClass]="{ 'error': isInvalid('password') }"></ion-input>
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
+        <ion-button *ngIf="!isIncomplete()" type="submit" expand="block" strong="true">Sign In</ion-button>
         <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
       </ion-col>
     </ion-row>

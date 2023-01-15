@@ -21,7 +21,7 @@ export class WebService {
         postData.append("email_address", user.email_address);
         postData.append("username", user.username);
         postData.append("password", user.password);
-        postData.append("allergy", "cold");
+        postData.append("allergy", user.allergy);
 
         return this.http.post('http://localhost:5000/api/v1.0/users/createUser', postData);
 
@@ -43,7 +43,7 @@ export class WebService {
         return this.http.delete('http://localhost:5000/api/v1.0/users/' + user._id)
     }
 
-    login() {
+    login(user:any) {
         return this.http.get('http://localhost:5000/api/v1.0/login');
     }
 

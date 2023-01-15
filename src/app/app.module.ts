@@ -14,7 +14,7 @@ import { LoginPageModule } from './login/login.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, RegistrationPageModule, HttpClientModule, LoginPageModule  ],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, RegistrationPageModule, HttpClientModule  ],
   providers: [WebService, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
