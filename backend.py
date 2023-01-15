@@ -42,7 +42,7 @@ def jwt_required(func):
     return jwt_required_wrapper
 
 @app.route("/api/v1.0/users", methods=["GET"])
-@jwt_required
+# @jwt_required
 def show_all_users():
     page_num, page_size = 1, 10
     if request.args.get('pn'):
@@ -76,19 +76,17 @@ def show_one_user(_id):
 @app.route("/api/v1.0/users/createUser", methods=["POST"])
 # @jwt_required
 def add_user():
-    if "first_name" in request.form and "last_name" in request.form and "email_address" in request.form and "password" in request.form and "allergy" in request.form:
+    if "first_name" in request.form and "last_name" in request.form and "email_address" in request.form and "password" in request.form and "allergy" in request.form and "username" in request.form:
         new_user = {"first_name": request.form["first_name"],
                     "last_name": request.form["last_name"],
                     "email_address": request.form["email_address"],
                     "password": request.form["password"],
-                    "allergy": request.form["allergy"]
+                    "allergy": request.form["allergy"],
+                    "username": request.form["username"]
                     }
         new_user_id = users.insert_one(new_user)
-        new_user_link = "http://localhost:5000/api/v1.0/users/createUser" + str(new_user_id.inserted_id)
+        new_user_link = "http://localhost:5000/api/v1.0/users/createUser" + "/" + str(new_user_id.inserted_id)
         return make_response( jsonify( { "url" : new_user_link}), 200)
-
-    # users.append(new_user)
-    # return make_response( jsonify( new_user ), 201) 
 
 # editing account details
 @app.route("/api/v1.0/users/<_id>", methods=["PUT"])
@@ -101,21 +99,13 @@ def edit_user(_id):
                             "last_name": request.form["last_name"],
                             "email_address": request.form["email_address"],
                             "password": request.form["password"],
-                            "allergy": request.form["allergy"]}
+                            "allergy": request.form["allergy"],
+                            "username": request.form["username"]}
             }
         )
         if result.matched_count == 1:
             edited_user_link = "http://localhost:5000/api/v1.0/users/" + _id
             return make_response( jsonify( { "url":edited_user_link }), 200)
-#     for user in users:
-#         if user["id"] == id:
-#             user["first_name"] = request.form["first_name"]
-#             user["last_name"]: request.form["last_name"]
-#             user["email_address"]: request.form["email_address"]
-#             user["password"]: request.form["password"]
-#             user["allergy"]: request.form["allergy"]
-#             break
-#     return make_response( jsonify( user ), 200)
 
 
 
@@ -128,11 +118,6 @@ def delete_user(_id):
         return make_response( jsonify( {} ), 204)
     else:
         return make_response( jsonify( {"error": "Invalid user ID"}), 404)
-    # for user in users:
-    #     if user["id"] == id:
-    #         users.remove(user)
-    #         break
-    # return make_response( jsonify( {} ), 200)
 
 # auth user login
 @app.route('/api/v1.0/login', methods=['GET'])
@@ -143,6 +128,7 @@ def login():
 
         user = users.find_one({'username': auth.username})
         if user is not None:
+            # if bcrypt.checkpw(user["password"].encode('utf-8'), hashed):
             if bcrypt.checkpw(user["password"].encode('utf-8'), hashed):
                 token = jwt.encode({'user': auth.username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
                 return make_response(jsonify({'token': token.decode('UTF-8')}), 200)
@@ -152,23 +138,6 @@ def login():
             return make_response(jsonify({'message': 'Bad username'}), 401)
     else:
         return make_response(jsonify({'message': 'Authentication required'}), 401)
-
-# @app.route('/api/v1.0/login', methods=['GET'])
-# def login():
-#     auth = request.authorization
-#     if auth:
-#         user = users.find_one( { 'username':auth.username } )
-#         if user is not None:
-#             if bcrypt.checkpw(bytes(auth.password, 'UTF-8'), \
-#                             user["password"]):
-#                 token = jwt.encode( {
-#                     'user' : auth.username, 
-#                     'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-#                 }, app.config['SECRET_KEY'])
-#                 return make_response(jsonify({'token' : token.decode('UTF-8')}),200)
-
-#     return make_response('Could not verify', 401, \
-#         {'WWW-Authenticate' : 'Basic realm = "Login required" '})
         
 
 # logout
