@@ -44,7 +44,7 @@ export class WebService {
     }
 
     login(user:any) {
-        return this.http.get('http://localhost:5000/api/v1.0/login');
+        return this.http.post('http://localhost:5000/api/v1.0/login', user);
     }
 
     logout() {

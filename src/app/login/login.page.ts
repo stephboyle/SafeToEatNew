@@ -59,7 +59,10 @@ export class LoginPage implements OnInit {
     //   });
     // }
     login() {
-      this.webService.login(this.loginForm).subscribe( async res => {
+      this.webService.login({
+        username: this.loginForm.get("username").value,
+        password: this.loginForm.get("password").value
+      }).subscribe( async res => {
         if (res) {
           this.router.navigate(['/scan']);
         } else {
