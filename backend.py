@@ -9,6 +9,8 @@ import jwt
 import datetime
 from pathlib import Path
 from functools import wraps
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_bcrypt import Bcrypt
 
 #from importlib_metadata import re 
 ##yest
@@ -80,7 +82,7 @@ def add_user():
         new_user = {"first_name": request.form["first_name"],
                     "last_name": request.form["last_name"],
                     "email_address": request.form["email_address"],
-                    "password": request.form["password"],
+                    "password": Bcrypt().generate_password_hash(request.form["password"]),
                     "allergy": request.form["allergy"],
                     "username": request.form["username"]
                     }
@@ -120,17 +122,20 @@ def delete_user(_id):
         return make_response( jsonify( {"error": "Invalid user ID"}), 404)
 
 # auth user login
-@app.route('/api/v1.0/login', methods=['GET'])
+@app.route('/api/v1.0/login', methods=['POST'])
 def login():
-    auth = request.authorization
+    auth = request.json
+    print("auth" + str(auth))
+    # auth = request.get("username")
     if auth:
-        hashed = bcrypt.hashpw(auth.password.encode('utf-8'), bcrypt.gensalt())
+        user = users.find_one({'username': auth['username']})
+        authed = Bcrypt().check_password_hash(user['password'], auth['password'])#.encode('utf-8'), auth['password'])
 
-        user = users.find_one({'username': auth.username})
         if user is not None:
-            # if bcrypt.checkpw(user["password"].encode('utf-8'), hashed):
-            if bcrypt.checkpw(user["password"].encode('utf-8'), hashed):
-                token = jwt.encode({'user': auth.username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+            # if bcrypt.checkpw(user["password"]):#.encode('utf-8')):
+            # if bcrypt.checkpw(user["password"].encode('utf-8'), authed):
+            if authed:
+                token = jwt.encode({'user': auth['username'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
                 return make_response(jsonify({'token': token.decode('UTF-8')}), 200)
             else:
                 return make_response(jsonify({'message': 'Bad password'}), 401)
