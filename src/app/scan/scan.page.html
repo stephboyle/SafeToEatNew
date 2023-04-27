@@ -28,3 +28,39 @@
     Tap the button in the toolbar to open the menu.
   </ion-content>
 </div>
+<ion-header>
+  <!-- <ion-navbar> -->
+    <ion-title>
+      Scan Barcode
+    </ion-title>
+  <!-- </ion-navbar> -->
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Scan a Barcode
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button block (click)="scanBarcode()">Scan</button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card *ngIf="product">
+    <ion-card-header>
+      Product Information
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>ID:</ion-label>
+          <ion-note item-end>{{ product.id }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Name:</ion-label>
+          <ion-note item-end>{{ product.name }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content> -->
