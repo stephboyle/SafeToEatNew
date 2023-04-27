@@ -1,7 +1,10 @@
 {
   "name": "app_frontend",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
   "type": "angular"
 }
