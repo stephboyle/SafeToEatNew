@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'scan',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
