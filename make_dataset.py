@@ -13,15 +13,23 @@ app = Flask(__name__)
 client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.SafeToEat
 users = db.users
+products = db.products
+
+# def create_database():
+#     with open('users.json') as f:
+#         parsed_json = json.load(f)
+
+#     for item in parsed_json:
+#             users.insert_one(item)
+#     print("Users loaded")
 
 def create_database():
-    with open('users.json') as f:
+    with open('products.json') as f:
         parsed_json = json.load(f)
 
     for item in parsed_json:
             users.insert_one(item)
-    print("Users loaded")
-
+    print("Products loaded")
 
 if __name__ == "__main__":
     #movies = generate_dummy_data()

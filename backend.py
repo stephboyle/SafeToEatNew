@@ -11,12 +11,17 @@ from pathlib import Path
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
+# from flask_sslify import SSLify
+# from flask_talisman import Talisman
 
 #from importlib_metadata import re 
 ##yest
  
 app = Flask(__name__)
+# sslify = SSLify(app)
 CORS(app)
+
+# Talisman(app, content_security_policy=None)
 
 app.config['SECRET_KEY'] = 'mysecret'
  
@@ -25,6 +30,7 @@ client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.SafeToEat
 users = db.users
 blacklist = db.blacklist
+products = db.products
 
 def jwt_required(func):
     @wraps(func)
@@ -153,7 +159,50 @@ def logout():
     blacklist.insert_one({"token":token})
     return make_response(jsonify({'message' : 'Logout successful'}), 200)
 
+# @app.route("/api/v1.0/barcodes/<_id>", methods=["GET"])
+# # @jwt_required
+# def show_product(_id):
+#     product = products.find_one({'_id':ObjectId(_id)})
+#     if product is not None:
+#         product["_id"] = str(product['_id'])
+#         return make_response( jsonify( product ), \
+#          200 )
+#     else:
+#         return make_response(  jsonify( {"error" : "Invalid barcode"} ), 404 )
+
+@app.route("/api/v1.0/barcodes/<barcode>", methods=["GET"])
+# @jwt_required
+def show_product(barcode):
+    product = products.find_one({'barcode':barcode})
+    if product is not None:
+        product["_id"] = str(product['_id'])
+        return make_response( jsonify( product ), \
+         200 )
+    else:
+        return make_response(  jsonify( {"error" : "Invalid barcode"} ), 404 )
+
+@app.route("/api/v1.0/barcodes", methods=["GET"])
+# @jwt_required
+def show_all_products():
+    page_num, page_size = 1, 10
+    if request.args.get('pn'):
+        page_num = int(request.args.get('pn'))
+    if request.args.get('ps'):
+        page_size = int(request.args.get('ps'))
+    page_start = (page_size * (page_num - 1))
+ 
+    data_to_return = []
+    for product in products.find().skip(page_start).limit(page_size):
+        product['_id'] = str(product['_id'])
+        for details in products.find():
+            details['_id'] = str(details['_id'])
+        data_to_return.append(product)    
+ 
+    return make_response( jsonify( data_to_return ), 200)
 
 if __name__ == "__main__":
-    #businesses = generate_dummy_data()
+    # app.run(host="127.0.0.1", port="5000", debug=True, ssl_context=("cert.pem", "key.pem"))
     app.run(debug=True)
+    # app.run(debug=False)
+    # app.run(ssl_context='adhoc')
+    # app.run(host='127.0.0.1', port=5000, ssl_context='adhoc')

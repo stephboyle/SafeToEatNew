@@ -1,0 +1,26 @@
+[
+    {
+        "barcode": "7622210396334",
+        "name": "Milka",
+        "info": "",
+        "ingredients": "Sucre, beurre de cacao, LAIT écrémé en poudre, pâte de cacao, lactosérum en poudre (de LAIT), BEURRE concentré, émulsifiant (lécithine de SOJA), pâte de NOISETTES, arôme. Cacao : 30% minimum.",
+        "allergens": "soja, gluten, lactose, fruits à coque",
+        "may_contain": "PEUT CONTENIR D'AUTRES FRUITS À COQUE ET DU BLÉ.",
+        "info_english": "",
+        "ingredients_english": "Sugar, cocoa butter, skimmed MILK powder, cocoa mass, whey powder (from MILK), concentrated BUTTER, emulsifier (SOYA lecithin), HAZELNUTS paste, flavouring. Cocoa: 30% minimum. ",
+        "allergens_english": "Soy, Gluten, Lactose, Nuts",
+        "may_contain_english": "MAY CONTAIN OTHER TREE NUTS AND WHEAT."
+    },
+    {
+        "barcode": "76950450479",
+        "name": "Pépito Mini Rollos",
+        "info": "BISCUITS FOURRES ET NAPPES DE CHOCOLAT AU LAIT",
+        "ingredients": "Farine de BLÉ 38%, chocolat au LAIT 23% sucre, beurre de cacao, pâte de cacao, poudre de LAIT écrémé, perméat de lactosérum (de LAIT), huile de palme, BEURRE pâtissier, émulsifiants (E442, E476), arôme, sucre, huiles végétales (palme, de colza), lactosérum en poudre (de LAIT), poudre de LAIT entier 1,7% (équivalent LAIT entier 13%), sirop de glucose, lactose (de LAIT), sel, poudre à lever (carbonates d'ammonium, carbonates de sodium), émulsifiant (lécithines de SOJA), arômes, acidifiant (acide citrique).",
+        "allergens": "Soja, Gluten, Oeuf, Lactose, Noix",
+        "may_contain": "PEUT CONTENIR DES ŒUFS ET DES FRUITS À COQUE.",
+        "info_english": "FILLED COOKIES AND MILK CHOCOLATE COATINGS",
+        "ingredients_english": "WHEAT flour 38%, MILK chocolate 23% sugar, cocoa butter, cocoa mass, skimmed MILK powder, whey permeate (from MILK), palm oil, pastry BUTTER, emulsifiers (E442, E476), flavouring, sugar, vegetable oils (palm, rapeseed), whey powder (from MILK), whole MILK powder 1.7% (whole MILK equivalent 13%), glucose syrup, lactose (from MILK), salt, baking powder ( ammonium carbonates, sodium carbonates), emulsifier (SOYA lecithins), flavourings, acidifier (citric acid).",
+        "allergens_english": "Soy, Gluten, Egg, Lactose, Nuts",
+        "may_contain_english": "MAY CONTAIN EGG AND NUTS."
+    }
+]
