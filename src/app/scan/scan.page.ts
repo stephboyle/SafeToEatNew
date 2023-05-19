@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { WebService } from '../web.service';
 import { HttpClient } from '@angular/common/http';
+import { AlertController } from '@ionic/angular'; 
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-scan',
@@ -12,14 +14,24 @@ import { HttpClient } from '@angular/common/http';
 export class ScanPage implements OnInit {
 
   scannedData: any;
+  productForm: any;
 
   constructor(public webService: WebService,
               public router: Router,
+              public route: ActivatedRoute,
               private barcodeScanner : BarcodeScanner,
-              public http: HttpClient) { }
+              public http: HttpClient,
+              public alertCtrl: AlertController,
+              public formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.productForm = this.formBuilder.group({
+      barcode: ['', Validators.required]
+      });
+
   }
+  
 
   deleteAccount(user: any) {
     this.webService.deleteUser(user).subscribe((response:any) => {
@@ -27,13 +39,11 @@ export class ScanPage implements OnInit {
                 });
   }
 
-  // scanBarcode() {
-  //   this.barcodeScanner.scan().then(barcodeData => {
-  //     console.log('Barcode data', barcodeData);
-  //   }).catch(err => {
-  //     console.log('Error', err);
-  //   })
-  // }
+  logout(user: any) {
+    this.webService.logout(user).subscribe((response:any) => {
+              this.router.navigate(['/home'])
+                });
+  }
 
   scanBarcode() {
     this.barcodeScanner.scan().then(barcodeData => {
@@ -45,9 +55,21 @@ export class ScanPage implements OnInit {
   }
 
 
-  // getProduct() {
-  //   this.http.get<any>()
-  // }
-
+  barcodeDetails() {
+    this.webService.getProduct({
+      barcode: this.productForm.get("barcode").value
+    }).subscribe( async res => {
+      if (res) {
+        this.router.navigate(['/home']);
+      } else {
+        const alert = await this.alertCtrl.create({
+          header: 'No Barcode Found',
+          message: 'Wrong Credentials',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    });
+  }
 
 }

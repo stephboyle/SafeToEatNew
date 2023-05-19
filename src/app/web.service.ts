@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class WebService {
+    productList: any;
 
     constructor(public http: HttpClient) {}
 
@@ -47,12 +48,12 @@ export class WebService {
         return this.http.post('http://localhost:5000/api/v1.0/login', user);
     }
 
-    logout() {
-        return this.http.get('http://localhost:5000/api/v1.0/logout');
+    logout(user: any) {
+        return this.http.get('http://localhost:5000/api/v1.0/logout' + user);
     }
 
     getProduct(product: any) {
-        return this.http.get('http://localhost:5000/api/v1.0/barcodes/' + product._id)
+        return this.http.get('http://localhost:5000/api/v1.0/barcodes/' + product.barcode)
     }
 
 }
