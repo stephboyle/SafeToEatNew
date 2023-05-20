@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>product</ion-title>
+    <ion-title>Allergen Information for {{ product?.barcode }} ({{ product?.name }})</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-card color="danger">
+  <ion-card-header>
+    <ion-card-title> {{ product?.name }} </ion-card-title>
+  </ion-card-header>
 
+  <ion-card-content>
+    INGREDIENTS: {{ product?.ingredients_english }}
+  </ion-card-content>
+  <ion-card-content>
+    CONTAINS: {{ product?.allergens_english }}
+  </ion-card-content>
+  <ion-card-content>
+    MAY CONTAIN: {{ product?.may_contain_english }}
+  </ion-card-content>
+</ion-card>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Product name: {{ product?.name }}</ion-card-title>
+      <ion-card-content> Information: {{ product?.info }} </ion-card-content>
+      <ion-card-content> Information translated: {{ product?.info_english }} </ion-card-content>
+      <ion-card-header> 
+        <ion-card-content>Ingredients: {{ product?.ingredients }}</ion-card-content>
+        <ion-card-content>Allergens: {{ product?.allergens }}</ion-card-content>
+        <ion-card-content>May Contain: {{ product?.may_contain }}</ion-card-content> </ion-card-header>
+    </ion-card-header>
+  </ion-card>
 </ion-content>

@@ -15,6 +15,7 @@ export class ScanPage implements OnInit {
 
   scannedData: any;
   productForm: any;
+  product: any;
 
   constructor(public webService: WebService,
               public router: Router,
@@ -56,11 +57,12 @@ export class ScanPage implements OnInit {
 
 
   barcodeDetails() {
+    let barcode = this.productForm.get("barcode").value;
     this.webService.getProduct({
-      barcode: this.productForm.get("barcode").value
+      barcode
     }).subscribe( async res => {
       if (res) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/product', barcode ]);
       } else {
         const alert = await this.alertCtrl.create({
           header: 'No Barcode Found',

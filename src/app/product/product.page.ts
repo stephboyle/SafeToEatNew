@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
-  productList: any;
+  product: any;
+  barcode: any;
 
   constructor(public webService: WebService,
               public route: ActivatedRoute,
@@ -23,8 +24,15 @@ export class ProductPage implements OnInit {
               public alertCtrl: AlertController) { }
 
   ngOnInit() {
-
-    this.productList = this.webService.getProduct(this.route.snapshot.params['barcode']);
-  }
+    this.barcode = this.route.snapshot.params['barcode']
+    this.webService.getProduct({barcode: this.barcode}).subscribe( async res => {
+      if (res) {
+        this.product = res;
+      }
+      else {
+        alert(true);
+      }
+  });
+}
 
 }
