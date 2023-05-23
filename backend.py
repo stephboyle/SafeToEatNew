@@ -159,17 +159,6 @@ def logout():
     blacklist.insert_one({"token":token})
     return make_response(jsonify({'message' : 'Logout successful'}), 200)
 
-# @app.route("/api/v1.0/barcodes/<_id>", methods=["GET"])
-# # @jwt_required
-# def show_product(_id):
-#     product = products.find_one({'_id':ObjectId(_id)})
-#     if product is not None:
-#         product["_id"] = str(product['_id'])
-#         return make_response( jsonify( product ), \
-#          200 )
-#     else:
-#         return make_response(  jsonify( {"error" : "Invalid barcode"} ), 404 )
-
 @app.route("/api/v1.0/barcodes/<barcode>", methods=["GET"])
 # @jwt_required
 def show_product(barcode):
