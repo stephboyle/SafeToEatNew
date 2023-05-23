@@ -74,4 +74,25 @@ export class ScanPage implements OnInit {
     });
   }
 
+  editAccount() {
+    const verifiedUsername = this.webService.getVerifiedUsername()
+    if (verifiedUsername) {
+      this.router.navigate(['/edit', verifiedUsername]);
+    }
+  }
+
+  // editAccount() {
+  //   this.webService.getProduct({ username: verifiedBarcode }).subscribe(async res => {
+  //     if (res) {
+  //       this.router.navigate(['/edit', verifiedBarcode]);
+  //     } else {
+  //       const alert = await this.alertCtrl.create({
+  //         header: 'No Barcode Found',
+  //         message: 'Wrong Credentials',
+  //         buttons: ['OK']
+  //       });
+  //       await alert.present();
+  //     }
+  //   });
+  // }
 }

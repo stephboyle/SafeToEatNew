@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class WebService {
     productList: any;
+    verifiedUsername: any;
 
     constructor(public http: HttpClient) {}
 
@@ -37,7 +38,7 @@ export class WebService {
         updateData.append("password", user.password);
         updateData.append("allergy", user.allergy);
 
-        return this.http.put('http://localhost:5000/api/v1.0/users/' + user._id, updateData);
+        return this.http.put('http://localhost:5000/api/v1.0/users/' + this.verifiedUsername, updateData);
     }
 
     deleteUser(user: any) {
@@ -46,6 +47,14 @@ export class WebService {
 
     login(user:any) {
         return this.http.post('http://localhost:5000/api/v1.0/login', user);
+    }
+
+    setVerifiedUsername(username: any) {
+        this.verifiedUsername = username;
+    }
+
+    getVerifiedUsername() {
+        return this.verifiedUsername;
     }
 
     logout(user: any) {
