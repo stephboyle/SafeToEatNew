@@ -59,11 +59,13 @@ export class LoginPage implements OnInit {
     //   });
     // }
     login() {
+      const username = this.loginForm.get("username").value;
       this.webService.login({
-        username: this.loginForm.get("username").value,
+        username: username,
         password: this.loginForm.get("password").value
       }).subscribe( async res => {
         if (res) {
+          this.webService.setVerifiedUsername(username);
           this.router.navigate(['/scan']);
         } else {
           const alert = await this.alertCtrl.create({
